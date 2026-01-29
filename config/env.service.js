@@ -1,0 +1,30 @@
+import dotenv from "dotenv";
+import Joi from "joi";
+dotenv.config({ path: "./config/.env" });
+const envSchema = Joi.object({
+  PORT: Joi.number().default(5000),
+  MONGO_URI: Joi.string()
+    .uri()
+    .required()
+    .messages({
+      "any.required": "❌ MONGO_URI is required",
+      "string.uri": "❌ MONGO_URI must be a valid URI",
+    }),
+  JWT_SECRET: Joi.string()
+    .min(10)
+    .required()
+    .messages({
+      "any.required": "❌ JWT_SECRET is required",
+      "string.min": "❌ JWT_SECRET must be at least 10 characters",
+    }),
+}).unknown(true);
+const { error, value } = envSchema.validate(process.env);
+if (error) {
+  console.error("🚨 Environment validation error:");
+  console.error(error.message);
+  process.exit(1);
+}
+process.env.PORT = value.PORT;
+process.env.MONGO_URI = value.MONGO_URI;
+process.env.JWT_SECRET = value.JWT_SECRET;
+console.log("✅ Environment variables validated successfully");
