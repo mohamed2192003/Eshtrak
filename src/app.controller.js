@@ -9,7 +9,6 @@ export const bootstrap = () => {
   app.use(
   cors({
     origin: true, // reflect request origin (e.g. http://localhost:3000)
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept"],
     optionsSuccessStatus: 200,
   })
