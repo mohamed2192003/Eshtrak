@@ -38,7 +38,10 @@ export const bootstrap = () => {
     res.send("HELLO FROM RAILWAY");
   });
 
-  app.listen(process.env.PORT, "0.0.0.0", () => {
-    console.log("Server started");
-  });
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 };
