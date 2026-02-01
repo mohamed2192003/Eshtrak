@@ -19,17 +19,12 @@ export const bootstrap = async () => {
   app.use(express.json());
 
   await connectDB();
-
   app.get("/", (req, res) => {
     res.send("API ALIVE 🚀");
   });
-
   app.use("/api/users", userRoutes);
   app.use("/api/admin", adminRoutes);
-
-  const PORT = process.env.PORT;
-  console.log("PORT FROM ENV:", process.env.PORT);
-  app.listen(PORT, () =>
+  app.listen(process.env.PORT, () =>
     console.log(`🚀 Server running on port ${PORT}`)
   );
 };
